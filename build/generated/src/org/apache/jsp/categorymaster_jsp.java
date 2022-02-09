@@ -3,8 +3,11 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.sql.PreparedStatement;
+import dbpackages.DbConfig;
+import java.sql.Connection;
 
-public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -48,6 +51,33 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+
+    boolean ispostback = (request.getParameter("check") == null) ? false : true;
+    
+    String categoryname = "", description = "", roomcharge = "", result = "",resultclass=" error ";
+    if (ispostback) {
+        try {
+            categoryname = request.getParameter("categoryname");
+            description = request.getParameter("description");
+            roomcharge = request.getParameter("roomcharge");
+            Connection connection = DbConfig.connect();
+            PreparedStatement ps = connection.prepareStatement("insert into roomcategories values(roomcategoryseq.nextval,?,?,?)");
+            ps.setString(1, categoryname);
+            ps.setString(2, description);
+            ps.setString(3, roomcharge);
+            ps.executeUpdate();
+            result = "Success";
+            resultclass=" success ";
+        } catch (Exception ex) {
+            result = ex.getMessage();
+        }
+    }
+
+      out.write('\n');
+      out.write('\n');
       out.write("<!DOCTYPE html>\n");
       out.write("<html lang=\"en\">\n");
       out.write("<head>\n");
@@ -58,23 +88,20 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("  <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"></script>\n");
       out.write("  <link href=\"styles/hotelstyle.css\" rel=\"stylesheet\"/>");
       out.write("\n");
-      out.write("  <title>index </title>\n");
+      out.write("<title>Booking </title>\n");
       out.write("</head>\n");
       out.write("<body>\n");
       out.write("\n");
       out.write("    <div class=\"container-fluid\">\n");
-      out.write("    \n");
-      out.write("    \n");
-      out.write("    \n");
-      out.write("    \n");
+      out.write("                                                                                                                                         \n");
       out.write("        <div style=\"background-size: cover ;background-image: url('images/people.jpg')\"  class=\"p-5 bg-primary text-white text-center\">\n");
-      out.write("   <h1 class=\"display-1\">Hotel Star</h1>\n");
-      out.write("     <p>A hotel is just a place to lay your head.\n");
-      out.write("     !</p> \n");
+      out.write("            <h1 class=\"display-1\">Hotel Star</h1>\n");
+      out.write("            <p>A hotel is just a place to lay your head.\n");
+      out.write("                !</p> \n");
       out.write("        </div>\n");
       out.write("\n");
-      out.write("    \n");
-      out.write("    ");
+      out.write("\n");
+      out.write("        ");
       out.write("<nav class=\"navbar navbar-expand-sm bg-dark navbar-dark\">\n");
       out.write("    <div class=\"container-fluid\">\n");
       out.write("        <a class=\"navbar-brand\" href=\"#\"><img class=\"imgstyle\" src=\"images/logo3.jpg\"></a>\n");
@@ -108,62 +135,57 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</nav>\n");
       out.write("\n");
       out.write("   \n");
-      out.write("    <div class=\"col-sm-12 banner\"> \n");
-      out.write("        <!-- The slideshow/carousel -->\n");
+      out.write("        <div class=\"row\">\n");
+      out.write("            <div class=\"col-sm-12 banner padding\"> \n");
       out.write("                \n");
-      out.write("                <div id=\"demo\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n");
-      out.write("\n");
-      out.write("    \n");
-      out.write("                    <div class=\"carousel-indicators\">\n");
-      out.write("                      <button type=\"button\" data-bs-target=\"#demo\" data-bs-slide-to=\"0\" class=\"active\"></button>\n");
-      out.write("                      <button type=\"button\" data-bs-target=\"#demo\" data-bs-slide-to=\"1\" class=\"active\"></button>\n");
-      out.write("                      <button type=\"button\" data-bs-target=\"#demo\" data-bs-slide-to=\"2\" class=\"active\"></button>\n");
-      out.write("                      <button type=\"button\" data-bs-target=\"#demo\" data-bs-slide-to=\"3\" class=\"active\"></button>\n");
-      out.write("                      <button type=\"button\" data-bs-target=\"#demo\" data-bs-slide-to=\"4\" class=\"active\"></button>\n");
-      out.write("                      <button type=\"button\" data-bs-target=\"#demo\" data-bs-slide-to=\"5\" class=\"active\"></button>\n");
+      out.write("                <!-- The Form -->\n");
+      out.write("                <form method=\"post\" class=\"was-validated\">\n");
+      out.write("                    <h2 class=\"");
+      out.print(resultclass);
+      out.write('"');
+      out.write('>');
+      out.print(result);
+      out.write("</h2>\n");
+      out.write("                    <input type=\"hidden\" name=\"check\"> \n");
+      out.write("                    <div class=\"form-floating mb-3 mt-3\">\n");
+      out.write("                        <input value=\"");
+      out.print(categoryname);
+      out.write("\" type=\"text\" required class=\"form-control\" id=\"categoryname\" placeholder=\"Enter Category\" name=\"categoryname\">\n");
+      out.write("                        <label for=\"categoryname\">Category Name</label>\n");
+      out.write("                        <div class=\"valid-feedback\">Category Name ok.</div>\n");
+      out.write("                        <div class=\"invalid-feedback\">Please fill out Category Name.</div>\n");
       out.write("                    </div>\n");
-      out.write("                  \n");
-      out.write("                    <!-- The slideshow/carousel -->\n");
-      out.write("                    <div class=\"carousel-inner\">\n");
-      out.write("                      <div class=\"carousel-item active\">\n");
-      out.write("                        <img class=\"style\" src=\"images/hotel.jpg\" alt=\"Varanasi\"> \n");
-      out.write("                      </div>\n");
-      out.write("                      <div class=\"carousel-item\">\n");
-      out.write("                        <img class=\"style\"src=\"images/receptionists.jpg\" alt=\"Varanasi\" >\n");
-      out.write("                      </div>\n");
-      out.write("                      <div class=\"carousel-item\">\n");
-      out.write("                        <img class=\"style\"src=\"images/villa.jpg\"  alt=\"Varanasi\">\n");
-      out.write("                      </div>\n");
-      out.write("                      <div class=\"carousel-item\">\n");
-      out.write("                        <img class=\"style\"src=\"images/people.jpg\"  alt=\"Varanasi\">\n");
-      out.write("                      </div>\n");
-      out.write("                         <div class=\"carousel-item\">\n");
-      out.write("                        <img class=\"style\"src=\"images/stars.jpg\"  alt=\"Varanasi\">\n");
-      out.write("                      </div>\n");
-      out.write("                         <div class=\"carousel-item\">\n");
-      out.write("                        <img class=\"style\"src=\"images/house.jpg\"  alt=\"Varanasi\">\n");
-      out.write("                      </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"form-floating mt-3 mb-3\">\n");
+      out.write("                        <input required value=\"");
+      out.print(roomcharge);
+      out.write("\" type=\"number\" class=\"form-control\" id=\"roomcharge\" placeholder=\"Room Charge\" name=\"roomcharge\">\n");
+      out.write("                        <label for=\"roomcharge\">Room Charge</label>\n");
+      out.write("                        <div class=\"valid-feedback\">Room Charge ok.</div>\n");
+      out.write("                        <div class=\"invalid-feedback\">Please fill out Room Charge.</div>\n");
+      out.write("\n");
+      out.write("                    </div> \n");
+      out.write("\n");
+      out.write("                    <div class=\"form-floating mb-3 mt-3\">\n");
+      out.write("                        <textarea required  class=\"form-control\" id=\"comment\" name=\"description\" placeholder=\"Comment goes here\">");
+      out.print(description);
+      out.write("</textarea>\n");
+      out.write("                        <label for=\"comment\">Comments</label>\n");
+      out.write("                        <div class=\"valid-feedback\">Comments ok.</div>\n");
+      out.write("                        <div class=\"invalid-feedback\">Please fill out Comment.</div>\n");
       out.write("\n");
       out.write("                    </div>\n");
-      out.write("                  \n");
-      out.write("                    <!-- Left and right controls/icons -->\n");
-      out.write("                    <button class=\"carousel-control-prev\" type=\"button\" data-bs-target=\"#demo\" data-bs-slide=\"prev\">\n");
-      out.write("                      <span class=\"carousel-control-prev-icon\"></span>\n");
-      out.write("                    </button>\n");
-      out.write("                    <button class=\"carousel-control-next\" type=\"button\" data-bs-target=\"#demo\" data-bs-slide=\"next\">\n");
-      out.write("                      <span class=\"carousel-control-next-icon\"></span>\n");
-      out.write("                    </button>\n");
-      out.write("                  </div>\n");
-      out.write("            \n");
-      out.write("        \n");
+      out.write("                    <div class=\"form-floating mb-3 mt-3\">\n");
+      out.write("                        <div class=\"d-grid\">\n");
+      out.write("                            <button type=\"submit\" class=\"btn-block btn btn-primary\">Submit</button>\n");
+      out.write("                        </div>\n");
+      out.write("                    </div>\n");
+      out.write("                </form>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
-      out.write("      \n");
-      out.write("    \n");
-      out.write("    \n");
+      out.write("    </div>\n");
       out.write("\n");
-      out.write("\n");
-      out.write("     ");
+      out.write("    ");
       out.write("<div class=\"mt-5 p-4 bg-dark text-white text-center\">\n");
       out.write("    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n");
       out.write("    <p>Developed by :</p>\n");
@@ -177,7 +199,6 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<a href=\"#\" class=\"fa fa-instagram\"></a>\n");
       out.write("</div>");
       out.write("\n");
-      out.write("     \n");
       out.write("</body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

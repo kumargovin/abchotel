@@ -1,16 +1,28 @@
+<!--************Header Starts ************-->
+
 <%@include file="includes/header.jsp" %>
-  <title>Hotel Star </title>
+  <title>index </title>
 </head>
 <body>
 
-<div class="p-5 bg-primary text-white text-center">
-  <h1> Hotel Star </h1>
-  <p>A hotel is just a place to lay your head.
-!</p> 
-</div>
-
+    <div class="container-fluid">
     
-    <%@include file="includes/menu.jsp" %>   
+    
+    
+    
+        <div style="background-size: cover ;background-image: url('images/people.jpg')"  class="p-5 bg-primary text-white text-center">
+   <h1 class="display-1">Hotel Star</h1>
+     <p>A hotel is just a place to lay your head.
+     !</p> 
+        </div>
+        
+        
+                  <!--************Menu Starts ************-->
+    
+    <%@include file="includes/menu.jsp" %>  
+      <!--************Menu Ends ************-->
+    
+    
     <div class="col-sm-12 banner"> 
         <!-- The slideshow/carousel -->
                 
@@ -61,11 +73,12 @@
         
             </div>
         </div>
-    
+      
     
     
 
 
-    <%@include file="includes/footer.jsp" %>
+     <%@include file="includes/footer.jsp" %>
+     
 </body>
 </html>

@@ -25,6 +25,7 @@
       height: 10px
           
   }
+  
   .fa {
       padding-top: 10px;
   padding-left: 20px;
@@ -51,8 +52,13 @@
   background: #55ACEE;
   color: white;
 }
-
-
+.error
+{
+    color:red;
+}
+.success{
+    color: green;
+}
 .fa-instagram {
   background: #125688;
   color: white;
