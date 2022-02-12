@@ -1,4 +1,4 @@
-<%@page import="java.sql.ResultSet"%>
+<%@page  import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="dbpackages.DbConfig"%>
 <%@page import="java.sql.Connection"%>
@@ -107,11 +107,11 @@
         .                                                                                                                                 
         <div style="background-size: cover ;background-image: url('images/people.jpg')"  class="p-5 bg-primary text-white text-center">
             <h1 class="display-1">Hotel Star</h1>
-            <p>A hotel is just a place to lay your head.
+            <p class="fw-bold">A hotel is just a place to lay your head.
                 !</p> 
         </div>
           <!--************Header Form Ends ************-->
-+
+
            <!--************Menu Form Starts ************-->
         <%@include file="includes/menu.jsp" %>  
         

@@ -3,6 +3,10 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import utilitiespackage.Utilities;
 import dbpackages.DbConfig;
 
 public final class test_jsp extends org.apache.jasper.runtime.HttpJspBase
@@ -46,18 +50,49 @@ public final class test_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
       out.write("        <title>JSP Page</title>\n");
+      out.write("        <meta charset=\"utf-8\">\n");
+      out.write("  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
+      out.write("  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n");
+      out.write("  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n");
+      out.write("  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
       out.write("        ");
 
-       out.println( DbConfig.connect());
+            Connection connection=DbConfig.connect();
+          PreparedStatement ps=  connection.prepareStatement("select * from roomcategories order by categoryname asc");
+            ResultSet rs=ps.executeQuery();
+            
         
       out.write("\n");
+      out.write("        <select>\n");
+      out.write("            ");
+
+            while(rs.next())
+            {
+                String categoryname="" + rs.getObject("CATEGORYNAME");
+                String categoryno="" + rs.getObject("CATEGORYNUMBER");
+            
+      out.write("\n");
+      out.write("            <option value=\"");
+      out.print(categoryno);
+      out.write('"');
+      out.write('>');
+      out.print(categoryname);
+      out.write("</option>\n");
+      out.write("            ");
+
+            }
+            
+      out.write("\n");
+      out.write("        </select>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

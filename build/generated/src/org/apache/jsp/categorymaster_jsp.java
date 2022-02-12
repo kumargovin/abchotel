@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import utilitiespackage.Utilities;
 import java.sql.PreparedStatement;
 import dbpackages.DbConfig;
 import java.sql.Connection;
@@ -54,6 +55,7 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
 
     boolean ispostback = (request.getParameter("check") == null) ? false : true;
     
@@ -76,8 +78,8 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
         }
     }
 
-      out.write('\n');
-      out.write('\n');
+      out.write("\n");
+      out.write("<!--************Header Starts ************-->\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html lang=\"en\">\n");
       out.write("<head>\n");
@@ -86,6 +88,10 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
       out.write("  <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n");
       out.write("  <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"></script>\n");
+      out.write(" \n");
+      out.write("  <!--<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">-->\n");
+      out.write("  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n");
+      out.write("  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>\n");
       out.write("  <link href=\"styles/hotelstyle.css\" rel=\"stylesheet\"/>");
       out.write("\n");
       out.write("<title>Booking </title>\n");
@@ -96,11 +102,13 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("                                                                                                                                         \n");
       out.write("        <div style=\"background-size: cover ;background-image: url('images/people.jpg')\"  class=\"p-5 bg-primary text-white text-center\">\n");
       out.write("            <h1 class=\"display-1\">Hotel Star</h1>\n");
-      out.write("            <p>A hotel is just a place to lay your head.\n");
+      out.write("            <p class=\"fw-bold\">A hotel is just a place to lay your head.\n");
       out.write("                !</p> \n");
       out.write("        </div>\n");
+      out.write("        <!--************Header Ends ************-->\n");
       out.write("\n");
-      out.write("\n");
+      out.write("           <!--************Menu Starts ************-->\n");
+      out.write("           \n");
       out.write("        ");
       out.write("<nav class=\"navbar navbar-expand-sm bg-dark navbar-dark\">\n");
       out.write("    <div class=\"container-fluid\">\n");
@@ -111,18 +119,18 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        <div class=\"collapse navbar-collapse\" id=\"collapsibleNavbar\">\n");
       out.write("            <ul class=\"navbar-nav\">\n");
       out.write("                <li class=\"nav-item\">\n");
-      out.write("                    <a class=\"nav-link\" href=\"#\">Home</a>\n");
+      out.write("                    <a class=\"nav-link\" href=\"index.jsp\">Home</a>\n");
       out.write("                </li>\n");
       out.write("                 <li class=\"nav-item\">\n");
-      out.write("                    <a class=\"nav-link\" href=\"#\">Contact</a>\n");
+      out.write("                    <a class=\"nav-link\" href=\"contact.jsp\">Contact</a>\n");
       out.write("                </li>\n");
       out.write("\n");
       out.write("\n");
       out.write("                <li class=\"nav-item dropdown\">\n");
       out.write("                    <a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\">Utilities</a>\n");
       out.write("                    <ul class=\"dropdown-menu\">\n");
-      out.write("                        <li><a class=\"dropdown-item\" href=\"#\">Booking</a></li>\n");
-      out.write("                        <li><a class=\"dropdown-item\" href=\"#\">Lookup</a></li>\n");
+      out.write("                        <li><a class=\"dropdown-item\" href=\"categorymaster.jsp\">Booking</a></li>\n");
+      out.write("                        <li><a class=\"dropdown-item\" href=\"roomcategory.jsp\">Lookup</a></li>\n");
       out.write("                        <li><a class=\"dropdown-item\" href=\"#\">Cancellation</a></li>\n");
       out.write("                    </ul>\n");
       out.write("                </li>\n");
@@ -134,12 +142,24 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("    </div>\n");
       out.write("</nav>\n");
       out.write("\n");
-      out.write("   \n");
-      out.write("        <div class=\"row\">\n");
-      out.write("            <div class=\"col-sm-12 banner padding\"> \n");
+      out.write("\n");
+      out.write("        \n");
+      out.write("        <!--************Menu Ends ************-->\n");
+      out.write("        \n");
+      out.write("        \n");
+      out.write("        <!--************Body Starts ************-->\n");
+      out.write("        <div class=\"container-fluid\">\n");
+      out.write("         <div class=\"row\">\n");
+      out.write("             <div class=\"col-sm-3 banner padding\"></div>\n");
+      out.write("         \n");
+      out.write("        \n");
+      out.write("            <div class=\"col-sm-6 banner padding\"> \n");
       out.write("                \n");
       out.write("                <!-- The Form -->\n");
       out.write("                <form method=\"post\" class=\"was-validated\">\n");
+      out.write("                   ");
+ out.println( Utilities.getModal("Categories Master",result,""));
+      out.write("\n");
       out.write("                    <h2 class=\"");
       out.print(resultclass);
       out.write('"');
@@ -182,9 +202,18 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("                    </div>\n");
       out.write("                </form>\n");
       out.write("            </div>\n");
-      out.write("        </div>\n");
+      out.write("             <div class=\"row\">\n");
+      out.write("             <div class=\"col-sm-3 banner padding\"></div>\n");
+      out.write("         </div>  \n");
+      out.write("         </div>\n");
+      out.write("        </div>                \n");
+      out.write("          <!--************Body Ends ************-->              \n");
+      out.write("    \n");
+      out.write("                        \n");
       out.write("    </div>\n");
       out.write("\n");
+      out.write("                        \n");
+      out.write("            <!--************Footer Starts ************-->            \n");
       out.write("    ");
       out.write("<div class=\"mt-5 p-4 bg-dark text-white text-center\">\n");
       out.write("    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n");
@@ -199,6 +228,8 @@ public final class categorymaster_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("<a href=\"#\" class=\"fa fa-instagram\"></a>\n");
       out.write("</div>");
       out.write("\n");
+      out.write("            <!--************Footer Ends ************-->\n");
+      out.write("    \n");
       out.write("</body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

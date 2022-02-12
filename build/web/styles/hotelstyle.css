@@ -63,3 +63,25 @@
   background: #125688;
   color: white;
 }
+.rahstyle:hover{
+   border-style:solid;
+}
+.img-rounded{
+   width: 354px;
+   height: 256px; 
+   padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 5%;
+}
+.privacy{
+    padding-bottom: 5px;
+    padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px 2px;
+  
+  
+}
