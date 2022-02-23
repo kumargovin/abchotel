@@ -4,7 +4,7 @@
 
 <!--***********Header starts here************ -->
 <%@include file="includes/header.jsp" %>
-<title>admin_view_rooms</title>
+<title>Admin_View_Rooms</title>
 </head>
 <body>
     
@@ -27,7 +27,7 @@
         <div class=" container mt-3"> 
             <h2>Room Description </h2>
             <p class="fw-bold">Rooms_List :</p>
-            <!--<p>Room list </p>-->
+            <!--<p>Room list </p>--> 
             <table class="table">
     <thead class="table-dark">
       <tr>
@@ -39,7 +39,9 @@
     </thead>
     <tbody>
         <%
-          PreparedStatement ps=DbConfig.connect().prepareStatement("select * from rooms order by roomid");
+            String categoryno=request.getParameter("categoryno");
+          PreparedStatement ps=DbConfig.connect().prepareStatement("select * from rooms where roomcategory=? order by roomno asc");
+          ps.setString(1, categoryno);
           ResultSet rs= ps.executeQuery();
           while(rs.next())
              {
@@ -48,7 +50,7 @@
             <td><%=rs.getObject("roomid")%></td>
             <td><%=rs.getObject("roomno")%></td>
             <td><%=rs.getObject("roomcharge")%></td>
-            <td><%=rs.getObject("roomcategory")%></td>
+            
             
         </tr>
         <%

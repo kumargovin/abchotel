@@ -110,6 +110,8 @@
             <p class="fw-bold">A hotel is just a place to lay your head.
                 !</p> 
         </div>
+    </div>
+        
           <!--************Header Form Ends ************-->
 
            <!--************Menu Form Starts ************-->
@@ -188,9 +190,9 @@
                                      <div class="form-floating mb-3 mt-3">
                         <div class="d-grid">
                             <button type="submit" name="cmd" value="delete" class="btn-block btn btn-primary">Delete</button></div>
-                        </div>         
-    </form>
+                               </div>       
                           </div> 
+                                  </form>
                       <div class="col-sm-3 banner"></div>               
                  </div>
             </div>     
@@ -204,5 +206,5 @@
                       <%@include file="includes/footer.jsp" %>
                       <!--************Footer Form Ends ************-->
                       
-    </body>
+        </body>
 </html>

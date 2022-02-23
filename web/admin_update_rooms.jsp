@@ -6,7 +6,7 @@
 <%
   String result="";
   boolean ispostback=(request.getParameter("check")==null) ? false:true;
-  String roomno="";
+  String roomno="0";
   String roomcategory="",roomcharge="";
   if(ispostback)
   {
@@ -96,9 +96,7 @@
         }
    }
                //**********************************************************  
-          }
-  }
-
+    
 %>
 <!--************* Header starts***********-->
 <%@include file="includes/header.jsp" %>
@@ -181,8 +179,9 @@
                         <div class="d-grid">
                             <button type="submit" name="cmd" value="delete" class="btn-block btn btn-primary">Delete</button></div>
                         </div>         
-    </form>
+    
                           </div> 
+                                 </form>
                       <div class="col-sm-3 banner"></div>               
                  </div>
             </div>     
