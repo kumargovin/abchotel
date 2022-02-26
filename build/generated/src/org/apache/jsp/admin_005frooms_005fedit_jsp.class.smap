@@ -1,0 +1,31 @@
+SMAP
+admin_005frooms_005fedit_jsp.java
+JSP
+*S JSP
+*F
++ 0 admin_rooms_edit.jsp
+admin_rooms_edit.jsp
++ 1 header.jsp
+includes/header.jsp
++ 2 menu.jsp
+includes/menu.jsp
++ 3 footer.jsp
+includes/footer.jsp
+*L
+1,70:55
+70,2:125
+1#1,13:127
+72#0,19:140
+1#2,33:159
+90#0,18:191
+108:209,3
+109,6:212
+115:218,3
+116,6:221
+122:227,3
+123,6:230
+129:236,3
+130,29:239
+1#3,12:268
+158#0,7:280
+*E

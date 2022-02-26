@@ -29,6 +29,7 @@
                           <td>Category Name</td>
                           <td>Comments</td>
                           <td>Charges</td>
+                          <td>Edit/Delete</td>
                       </tr>
             <%
                 try
@@ -36,11 +37,12 @@
                   ResultSet rs=  DbConfig.connect().prepareStatement("select * from roomcategories order by categoryname").executeQuery();
                   while (rs.next()) {                          
                           %>
-                          <tr>
-                               <td><a target="roomsview" href="admin_view_rooms.jsp?categoryno=<%=rs.getObject(1)%>">View Rooms</a></td>
+                      <tr>
+                          <td><a target="roomsview" href="admin_view_rooms.jsp?categoryno=<%=rs.getObject(1)%>">View Rooms</a></td>
                           <td><%=rs.getObject(2)%></td>
                           <td><%=rs.getObject(3)%></td>
                           <td><%=rs.getObject(4)%></td>
+                          <td><a target="Edit/Delete" href="type_of_room_edit.jsp?categoryno=<%=rs.getObject(1)%>">edit/delete</a></td>
                       </tr>
                           <%
                       }
@@ -49,11 +51,11 @@
             {
                 System.out.println(ex);
             }
-            %>
+                           %>
             
             </table>
             
-        </div>
+        </div> 
         
         
         

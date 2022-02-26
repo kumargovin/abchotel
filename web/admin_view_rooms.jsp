@@ -35,6 +35,7 @@
         <th>Room_No</th>
         <th>Room_Charge</th>
         <th>Room_Category</th>
+        <th>Edit/Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -47,9 +48,11 @@
              {
         %>
         <tr>
-            <td><%=rs.getObject("roomid")%></td>
-            <td><%=rs.getObject("roomno")%></td>
-            <td><%=rs.getObject("roomcharge")%></td>
+            <td><%=rs.getObject(1)%></td>
+            <td><%=rs.getObject(2)%></td>
+            <td><%=rs.getObject(3)%></td>
+            <td><%=rs.getObject(4)%></td
+            <td><a target="Edit/Delete" href="admin_room_edit.jsp?roomid=">edit</a></td>
             
             
         </tr>

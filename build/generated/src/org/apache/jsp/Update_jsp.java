@@ -7,9 +7,8 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import dbpackages.DbConfig;
 import java.sql.Connection;
-import java.sql.Connection;
 
-public final class editguest_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class Update_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -57,90 +56,103 @@ public final class editguest_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write("\n");
-   String result="",resultclass=" error ";
-     String  id, name="",age="",address="",aadhaarno="",comments="";
-     boolean ispostback=(request.getParameter("check") == null)? false:true;
-    if(!ispostback)
+
+    String result="";
+    boolean ispostback = (request.getParameter("check") == null) ? false : true;
+    String categoryno="0";
+    String categoryname="",description="",roomcharge="" ;
+    if(ispostback)
     {
-    id=request.getParameter("id");
-    PreparedStatement ps=DbConfig.connect().prepareStatement("select * from   guestentry where id=?");
-    ps.setString(1, id);
-    ResultSet rs=ps.executeQuery();
-   
-    if (rs.next())
-    {
-     
-        name="" + rs.getObject("name");
-        age="" + rs.getString("age");
-        address="" + rs.getString("address");
-        aadhaarno="" + rs.getObject("aadhaarno");
-        comments="" + rs.getString("comments");
-            }
-            
-    }
-    else
-    {
-        String cmd=request.getParameter("cmd");
-        name=request.getParameter("name");
-        age=request.getParameter("age");
-        address=request.getParameter("address");
-        aadhaarno=request.getParameter("aadhaarno");
-        comments=request.getParameter("comments");
-        id=request.getParameter("id");
-        if(cmd.equals("update"))
+        //****************Get Starts Here***************************
+        try
         {
-            System.out.println("Write code for updating");
-           PreparedStatement  ps = DbConfig.connect().prepareStatement("update guestentry set name=?, age=?, address=?,aadhaarno=?,comments=? where id=?"); 
-           ps.setString(1, name);
-           ps.setString(2, age);
-           ps.setString(3, address);
-           ps.setString(4,aadhaarno);
-           ps.setString(5, comments);
-           ps.setString(6, id);
-           int n=ps.executeUpdate();
-           System.out.println("Updated");
+        String cmd=request.getParameter("cmd");
+        System.out.println(cmd);
+        if(cmd.equals("get"))
+        {
+   categoryno=request.getParameter("categoryno");
+   Connection connection=DbConfig.connect();
+   PreparedStatement ps= connection.prepareStatement("select * from roomcategories where categorynumber=?");
+   
+      
+   ps.setString(1, categoryno);
+   ResultSet rs=ps.executeQuery();
+   if(rs.next())
+   {
+       categoryname="" + rs.getObject("categoryname");
+       description="" + rs.getObject("description");
+       roomcharge="" + rs.getObject("roomcharge");
+       result="Record Found";
+   }
+   else 
+   {
+       result="Record Not Found";
+   categoryname="Not found";
+   }
+   //****************Get Ends Here***************************
+        }  
+        // ***********UPDATE Starts here*****************
+        if(cmd.equals("submit"))
+        {
+             Connection connection=DbConfig.connect();
+             categoryname = request.getParameter("categoryname");
+            description = request.getParameter("description");
+            roomcharge = request.getParameter("roomcharge");
+            categoryno =request.getParameter("categoryno");
+            PreparedStatement ps = connection.prepareStatement("update roomcategories set categoryname=?, description=?, roomcharge=? where categorynumber=?");
+            ps.setString(1, categoryname);
+            ps.setString(2, description);
+            ps.setString(3, roomcharge);
+            ps.setString(4, categoryno);
+          int n=  ps.executeUpdate();
            if(n>0)
           {
-              result="Updated Successfully ";
+              result="Record Update " + n;
           }
           else 
           {
-              result="Updated Not Successfully ";
+              result="Record Not Update";
           }
-              out.println(id);
+              out.println(categoryno);
+          
+          // ***********UPDATE Ends here*****************
         }
-       // --------------Delete starts here---------
-                
-                 if(cmd.equals("delete"))
+        //**************Delete starts here*********************
+        if(cmd.equals("delete"))
         {
-            System.out.println("Write code for deleting");
+            Connection connection=DbConfig.connect();
+             categoryname = request.getParameter("categoryname");
+            description = request.getParameter("description");
+            roomcharge = request.getParameter("roomcharge");
+            categoryno =request.getParameter("categoryno");
+            PreparedStatement ps = connection.prepareStatement("delete from roomcategories where categorynumber=?");
+            ps.setString(1, categoryno);
+          int n =  ps.executeUpdate();
+        
             
-            PreparedStatement ps=DbConfig.connect().prepareStatement("delete from guestentry where id=?");
-            
-            ps.setString(1, id);
-            int n=ps.executeUpdate();
-            System.out.println("deleted");
-            if(cmd.equals("delete"))
-            {
-                name=""; age=""; address="";aadhaarno="";comments="";
-            }
-            
-             if(n>0)
+          if(n>0)
           {
-              result="Deleted Successfully " + n;
+              result="Record Deleted " + n;
           }
           else 
           {
-              result="Deleted Not Successfully";
+              result="Record Not Deleted";
           }
-              out.println(id);
+              out.println(categoryno);
+        } 
+        //**************Delete ends here*********************
         }
-           
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+            result=ex.getMessage();
         }
-     
+   }
+    //**********************************************************
 
-      out.write('\n');
+      out.write("\n");
+      out.write("\n");
+      out.write("  ");
       out.write("<!DOCTYPE html>\n");
       out.write("<html lang=\"en\">\n");
       out.write("<head>\n");
@@ -154,8 +166,8 @@ public final class editguest_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n");
       out.write("  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>\n");
       out.write("  <link href=\"styles/hotelstyle.css\" rel=\"stylesheet\"/>");
-      out.write("  \n");
-      out.write("<title>Guest edit</title>\n");
+      out.write("\n");
+      out.write("<title>Update </title>\n");
       out.write("</head>\n");
       out.write("<body>\n");
       out.write("             <!--************Header Form  Start************-->\n");
@@ -221,84 +233,86 @@ public final class editguest_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        \n");
       out.write("        <!--Form Start-->\n");
       out.write("        <form method=\"post\">\n");
-      out.write("            <input type=\"hidden\" name=\"id\" value=\"");
-      out.print(id);
-      out.write("\">\n");
       out.write("            <h1>");
       out.print(result);
       out.write("</h1>\n");
       out.write("                \n");
-      out.write("       \n");
+      out.write("        <div class=\"row\">\n");
+      out.write("            <div class=\"col-sm-8 banner\">\n");
+      out.write("                <div class=\"form-floating mb-3 mt-3\">\n");
+      out.write("                        <input value=\"");
+      out.print(categoryno);
+      out.write("\" type=\"number\" required class=\"form-control\" id=\"categoryno\" placeholder=\"Enter Category No\" name=\"categoryno\">\n");
+      out.write("                        <label for=\"categoryno\">Category No</label>\n");
+      out.write("                        <div class=\"valid-feedback\">Category Name ok.</div>\n");
+      out.write("                        <div class=\"invalid-feedback\">Please fill out Category Name.</div>\n");
+      out.write("                    </div>\n");
+      out.write("            \n");
+      out.write("            </div>       \n");
+      out.write("            <div class=\"col-sm-4 banner\"><br>\n");
+      out.write("                <button type=\"submit\" name=\"cmd\" formnovalidate=\"formnovalidate\" value=\"get\" class=\"btn-block btn btn-primary\">Get</button>\n");
+      out.write("                \n");
+      out.write("            </div>\n");
+      out.write("        \n");
+      out.write("        </div>\n");
+      out.write("      \n");
       out.write("        <!--Form End -->\n");
       out.write("        \n");
       out.write("        \n");
       out.write("        \n");
       out.write("                    <h2 class=\"\"></h2>\n");
       out.write("                    <input type=\"hidden\" name=\"check\"> \n");
-      out.write("                     <div class=\"form-floating mb-3 mt-3\">\n");
+      out.write("                    <div class=\"form-floating mb-3 mt-3\">\n");
       out.write("                        <input  value=\"");
-      out.print(name);
-      out.write("\"  type=\"text\" required class=\"form-control\" id=\"guestname\" placeholder=\"Guest Name\" name=\"name\">\n");
-      out.write("                        <label for=\"guestname\">Guest Name</label>\n");
-      out.write("                        <div class=\"valid-feedback\">Guest Name ok.</div>\n");
-      out.write("                        <div class=\"invalid-feedback\">Please fill out Guest Name.</div>\n");
+      out.print(categoryname);
+      out.write("\"  type=\"text\" required class=\"form-control\" id=\"categoryname\" placeholder=\"Enter Category\" name=\"categoryname\">\n");
+      out.write("                        <label for=\"categoryname\">Category Name</label>\n");
+      out.write("                        <div class=\"valid-feedback\">Category Name ok.</div>\n");
+      out.write("                        <div class=\"invalid-feedback\">Please fill out Category Name.</div>\n");
       out.write("                    </div>\n");
-      out.write("                          <div class=\"form-floating mt-3 mb-3\">\n");
-      out.write("                        <input required value=\"");
-      out.print(age);
-      out.write("\" type=\"number\"required class=\"form-control\" id=\"age\" placeholder=\"Age\" name=\"age\">\n");
-      out.write("                        <label for=\"age\">Age</label>\n");
-      out.write("                        <div class=\"valid-feedback\">Age ok.</div>\n");
-      out.write("                        <div class=\"invalid-feedback\">Please fill out Age.</div>\n");
-      out.write("                        \n");
+      out.write("\n");
       out.write("                    <div class=\"form-floating mt-3 mb-3\">\n");
       out.write("                        <input required value=\"");
-      out.print(address);
-      out.write("\" type=\"text\"required class=\"form-control\" id=\"address\" placeholder=\"Address\" name=\"address\">\n");
-      out.write("                        <label for=\"address\">Address</label>\n");
-      out.write("                        <div class=\"valid-feedback\">Address ok.</div>\n");
-      out.write("                        <div class=\"invalid-feedback\">Please fill out Address.</div>\n");
+      out.print(roomcharge);
+      out.write("\" type=\"number\" class=\"form-control\" id=\"roomcharge\" placeholder=\"Room Charge\" name=\"roomcharge\">\n");
+      out.write("                        <label for=\"roomcharge\">Room Charge</label>\n");
+      out.write("                        <div class=\"valid-feedback\">Room Charge ok.</div>\n");
+      out.write("                        <div class=\"invalid-feedback\">Please fill out Room Charge.</div>\n");
       out.write("\n");
       out.write("                    </div> \n");
-      out.write("                        <div class=\"form-floating mt-3 mb-3\">\n");
-      out.write("                        <input required value=\"");
-      out.print(aadhaarno);
-      out.write("\" type=\"number\" class=\"form-control\" id=\"aadhaarno\" placeholder=\"Aadhaar No\" name=\"aadhaarno\">\n");
-      out.write("                        <label for=\"aadhaarno\">Aadhar No</label>\n");
-      out.write("                        <div class=\"valid-feedback\">Aadhar No.</div>\n");
-      out.write("                        <div class=\"invalid-feedback\">Please fill out Aadhar No.</div>\n");
       out.write("\n");
-      out.write("                    </div> \n");
-      out.write("                        \n");
       out.write("                    <div class=\"form-floating mb-3 mt-3\">\n");
-      out.write(" <textarea required   class=\"form-control\" id=\"comments\" name=\"comments\" placeholder=\"Comment goes here\">\n");
-      out.print(comments);
-      out.write("</textarea>\n");
-      out.write("                        <label for=\"comments\">Comments</label>\n");
+      out.write("                        <textarea required  class=\"form-control\" id=\"comment\" name=\"description\" placeholder=\"Comment goes here\">\n");
+      out.write("                            ");
+      out.print(description);
+      out.write("\n");
+      out.write("                        </textarea>\n");
+      out.write("                        <label for=\"comment\">Comments</label>\n");
       out.write("                        <div class=\"valid-feedback\">Comments ok.</div>\n");
       out.write("                        <div class=\"invalid-feedback\">Please fill out Comment.</div>\n");
       out.write("\n");
       out.write("                        </div>\n");
       out.write("                        <div class=\"row\">\n");
-      out.write("                            <div class=\"col-sm-6 banner\">\n");
+      out.write("                            <div class=\"col-sm-6 banner\"\n");
       out.write("                        <div class=\"form-floating mb-3 mt-3\">\n");
       out.write("                        <div class=\"d-grid\">\n");
-      out.write("                            <button type=\"submit\" name=\"cmd\" value=\"update\" class=\"btn-block btn btn-primary\">Update</button></div>\n");
+      out.write("                            <button type=\"submit\" name=\"cmd\" value=\"submit\" class=\"btn-block btn btn-primary\">Update</button></div>\n");
       out.write("                        </div>\n");
+      out.write("                                 <div class=\"col-sm-6 banner\" \n");
+      out.write("                                     <div class=\"form-floating mb-3 mt-3\">\n");
+      out.write("                        <div class=\"d-grid\">\n");
+      out.write("                            <button type=\"submit\" name=\"cmd\" value=\"delete\" class=\"btn-block btn btn-primary\">Delete</button></div>\n");
+      out.write("                               </div>       \n");
       out.write("                          </div> \n");
-      out.write("                            <div class=\"col-sm-6 banner\">\n");
-      out.write("                        <div class=\"form-floating mb-3 mt-3\">\n");
-      out.write("                        <div class=\"d-grid\">\n");
-      out.write("                            <button type=\"delete\" name=\"cmd\" value=\"delete\" class=\"btn-block btn btn-primary\">Delete</button></div>\n");
-      out.write("                        </div>\n");
-      out.write("                        </div>\n");
-      out.write("                           \n");
       out.write("                                  </form>\n");
       out.write("                      <div class=\"col-sm-3 banner\"></div>               \n");
       out.write("                 </div>\n");
       out.write("            </div>     \n");
       out.write("      </div> \n");
       out.write("                     <!--************Body Ends ************--> \n");
+      out.write("                     \n");
+      out.write("                     \n");
+      out.write("                     \n");
       out.write("                     \n");
       out.write("                      <!--************Footer Form Starts ************-->  \n");
       out.write("                      ");

@@ -82,8 +82,8 @@ public final class guest_005fentry_jsp extends org.apache.jasper.runtime.HttpJsp
             ps.setString(4,aadhaarno);
             ps.setString(5,comments);
             ps.executeUpdate();
-            result = "Success";
-            resultclass=" success ";
+            result = "Successfully";
+            resultclass=" successfully ";
             
             }    
             

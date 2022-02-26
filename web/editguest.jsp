@@ -3,7 +3,7 @@
 <%@page import="dbpackages.DbConfig"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.Connection"%>
-<%   String result="",resultclass="";
+<%   String result="",resultclass=" error ";
      String  id, name="",age="",address="",aadhaarno="",comments="";
      boolean ispostback=(request.getParameter("check") == null)? false:true;
     if(!ispostback)
@@ -16,8 +16,6 @@
     if (rs.next())
     {
      
-        
- 
         name="" + rs.getObject("name");
         age="" + rs.getString("age");
         address="" + rs.getString("address");
@@ -49,11 +47,11 @@
            System.out.println("Updated");
            if(n>0)
           {
-              result="Successful " + n;
+              result="Updated Successfully ";
           }
           else 
           {
-              result="Not Successful ";
+              result="Updated Not Successfully ";
           }
               out.println(id);
         }
@@ -75,22 +73,17 @@
             
              if(n>0)
           {
-              result="Successful " + n;
+              result="Deleted Successfully " + n;
           }
           else 
           {
-              result="Not Successful";
+              result="Deleted Not Successfully";
           }
               out.println(id);
         }
            
         }
      
-    
-     
-     
-    
-        
 %>
 <%@include file="includes/header.jsp" %>  
 <title>Guest edit</title>
